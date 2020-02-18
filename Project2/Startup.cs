@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Project2.Repositories;
+using Project2.Repositories.Abstract;
 
 namespace Project2
 {
@@ -17,6 +19,8 @@ namespace Project2
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+             .AddJsonFile("appsettingsDB.json");
         }
 
         public IConfiguration Configuration { get; }
@@ -25,6 +29,8 @@ namespace Project2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
