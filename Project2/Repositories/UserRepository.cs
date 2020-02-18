@@ -40,7 +40,7 @@ namespace Project2.Repositories
                 {
                     cmd.Connection.Open();
                 }
-                cmd.CommandText = "SELECT *, s.type FROM public.users a INNER JOIN public.roles s ON s.id = a.fk_role ORDER bY a.id DESC";
+                cmd.CommandText = "SELECT *, s.type FROM public.users a INNER JOIN public.roles s ON s.\"ID\" = a.\"FK_Role\" ORDER bY a.\"ID\" DESC";
 
                 dt = _context.ExecuteSelectCommand(cmd);
             }

@@ -12,16 +12,16 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "user",
+      "launchUrl": "api/user",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Project2": {
-      "commandName": "Project",
+      "commandName": "Project2",
       "launchBrowser": true,
-      "launchUrl": "user",
-      "applicationUrl": "http://localhost:5000",
+      "launchUrl": "api/user",
+      "applicationUrl": "http://localhost:63622",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
