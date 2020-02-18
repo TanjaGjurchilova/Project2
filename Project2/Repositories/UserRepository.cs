@@ -40,7 +40,7 @@ namespace Project2.Repositories
                 {
                     cmd.Connection.Open();
                 }
-                cmd.CommandText = "SELECT *, s.type, i.type FROM public.users a INNER JOIN public.roles s ON s.id = a.fk_role INNER JOIN public.industry i ON i.id = a.fk_industry ORDER bY a.id DESC";
+                cmd.CommandText = "SELECT *, s.type FROM public.users a INNER JOIN public.roles s ON s.id = a.fk_role ORDER bY a.id DESC";
 
                 dt = _context.ExecuteSelectCommand(cmd);
             }
@@ -98,11 +98,6 @@ namespace Project2.Repositories
                 Active = bool.Parse(dr["active"].ToString()),
                 Appruved = bool.Parse(dr["appruved"].ToString()),
                 CompanyUser = bool.Parse(dr["company_user"].ToString()),
-                UserIndustry = new Industry
-                {
-                    Id = int.Parse(dr["ID"].ToString()),
-                    Type = dr["type"].ToString()
-                },
                 UserRole = new Role
                 {
                     Id = int.Parse(dr["ID"].ToString()),
@@ -127,7 +122,7 @@ namespace Project2.Repositories
                     cmd.Connection.Open();
                 }
                 cmd.CommandText =
-                    "SELECT * FROM public.users a INNER JOIN public.roles s ON s.\"ID\" = a.\"FK_Role\" INNER JOIN public.industry i ON i.\"ID\" = a.\"FK_Industry\" WHERE u.id=:id;";
+                    "SELECT * FROM public.users a INNER JOIN public.roles s ON s.\"ID\" = a.\"FK_Role\"  WHERE u.id=:id;";
                 _context.CreateParameterFunc(cmd, "@id", UserId, NpgsqlDbType.Integer);
                 dt = _context.ExecuteSelectCommand(cmd);
             }
@@ -264,7 +259,7 @@ namespace Project2.Repositories
                 }
 
                 cmd.CommandText =
-                    "SELECT * FROM public.users u INNER JOIN public.roles s ON s.\"ID\" = u.\"FK_Role\" INNER JOIN public.industry i ON i.\"ID\" = u.\"FK_Industry\" WHERE (lower(u.username)=lower(@unORem) OR lower(u.email)=lower(@unORem)) AND u.password= @p;";
+                    "SELECT * FROM public.users u INNER JOIN public.roles s ON s.\"ID\" = u.\"FK_Role\"  WHERE (lower(u.username)=lower(@unORem) OR lower(u.email)=lower(@unORem)) AND u.password= @p;";
                 _context.CreateParameterFunc(cmd, "@unORem", emailORusername, NpgsqlDbType.Text);
                 _context.CreateParameterFunc(cmd, "@p", CreatePasswordHash(password, salt), NpgsqlDbType.Text);
                 dt = _context.ExecuteSelectCommand(cmd);
@@ -395,7 +390,7 @@ namespace Project2.Repositories
 
                 // Test example
                 cmd.CommandText =
-                    "SELECT * FROM public.users a INNER JOIN public.roles s ON s.\"ID\" = a.\"FK_Role\" INNER JOIN public.industry i ON i.\"ID\" = a.\"FK_Industry\" WHERE lower(a.email)=lower(:email) AND a.password= :p ;";
+                    "SELECT * FROM public.users a INNER JOIN public.roles s ON s.\"ID\" = a.\"FK_Role\"  WHERE lower(a.email)=lower(:email) AND a.password= :p ;";
 
                 _context.CreateParameterFunc(cmd, "@email", email, NpgsqlDbType.Text);
                 _context.CreateParameterFunc(cmd, "@p", password, NpgsqlDbType.Text);
